@@ -1,182 +1,211 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charan ❤️ Bhargavi - Wedding Countdown</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&display=swap" rel="stylesheet">
-
-  <title>Charan & Bhargavi - Wedding Countdown</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Segoe UI', sans-serif;
+      background: url('new_bg.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Dancing Script', 'Great Vibes', cursive;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       overflow: hidden;
     }
-body {
-  font-family: 'Dancing Script', 'Great Vibes', cursive;
-  font-size: 1.2rem;
-}
 
-h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-}
-
-    .background {
+    body::before {
+      content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: url('togather.JPEG') no-repeat center center/cover;
-      filter: blur(6px);
-      z-index: -2;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.4);
       z-index: -1;
     }
 
-    .content {
-      text-align: center;
-      color: #fff;
-      padding: 10vh 5vw;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      color: #f1c40f;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      color: #ecf0f1;
-    }
-
-    #countdown {
-      font-size: 1.8rem;
-      background: rgba(255, 255, 255, 0.1);
+    .center-content {
       padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      border: 2px solid #f1c40f;
-      max-width: 90vw;
+      z-index: 1;
+    }
+
+    .glow-text {
+      color: #fff;
+      text-shadow:
+        0 0 5px #f8c6ff,
+        0 0 10px #f49eff,
+        0 0 20px #ff6fff,
+        0 0 30px #d13cff,
+        0 0 40px #b300ff;
+      animation: shimmer 2.5s infinite alternate;
+      font-size: 3rem;
+    }
+
+    @keyframes shimmer {
+      from {
+        text-shadow:
+          0 0 5px #f8c6ff,
+          0 0 10px #f49eff,
+          0 0 20px #ff6fff,
+          0 0 30px #d13cff,
+          0 0 40px #b300ff;
+      }
+      to {
+        text-shadow:
+          0 0 10px #ffd6fa,
+          0 0 20px #fcb3ff,
+          0 0 30px #ff8fff,
+          0 0 40px #e056fd,
+          0 0 50px #c600ff;
+      }
+    }
+
+    #countdown, #stopwatch, #celebration {
+      font-size: 1.5rem;
+      margin-top: 1rem;
     }
 
     #celebration {
       display: none;
-      font-size: 2rem;
-      margin-top: 40px;
-      animation: pop 0.6s ease-out forwards;
-      color: #2ecc71;
+      transition: opacity 2s ease;
+      opacity: 0;
     }
 
-    @keyframes pop {
+    #celebration.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 1.4rem;
+        padding: 10px;
+      }
+      .glow-text {
+        font-size: 2.4rem;
+      }
+      #countdown, #stopwatch, #celebration {
+        font-size: 1.7rem;
+      }
+    }
+
+    /* Floating hearts */
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s infinite ease-in;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes float {
       0% {
-        transform: scale(0.5);
+        transform: translateY(100vh) rotate(45deg) scale(0.8);
         opacity: 0;
       }
       50% {
-        transform: scale(1.2);
         opacity: 1;
       }
       100% {
-        transform: scale(1);
-        opacity: 1;
+        transform: translateY(-10vh) rotate(45deg) scale(1.2);
+        opacity: 0;
       }
     }
 
-    @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-
-      #countdown {
-        font-size: 1.4rem;
-        padding: 15px;
-      }
-
-      #celebration {
-        font-size: 1.5rem;
-      }
-    }
-	#stopwatch {
-  font-family: 'Segoe UI', sans-serif;
-}
+    .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .heart:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .heart:nth-child(3) { left: 50%; animation-delay: 4s; }
+    .heart:nth-child(4) { left: 70%; animation-delay: 6s; }
+    .heart:nth-child(5) { left: 90%; animation-delay: 8s; }
   </style>
 </head>
 <body>
-
-  <div class="background"></div>
-  <div class="overlay"></div>
-
-  <div class="content">
-    <h1>Charan ❤️ Bhargavi</h1>
-<p>Two hearts, one journey.<br>
-The countdown to our forever begins now...</p>
-
-
-    <div id="countdown">Loading countdown...</div>
-   <div id="celebration" style="display:none;">
-  🎉 The wait is over... Charan & Bhargavi are now one soul, one love, one life. 💑💫
-  <div id="stopwatch" style="margin-top: 20px; font-size: 1.5rem; color: #f1c40f;"></div>
-</div>
-
+  <div class="hearts-container">
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
   </div>
-
+  <div class="center-content">
+    <h1 class="glow-text">Charan ❤️ Bhargavi</h1>
+    <p>Two hearts, one journey.<br>Our forever is just a heartbeat away... 💖</p>
+    <p style="font-style: italic; font-size: 1rem; margin-top: 10px;">ప్రేమలో ఒక చిరునవ్వు… జీవితాంతం చిరస్మరణీయమైన బంధంగా మారుతుంది 💍</p>
+    <div id="countdown"></div>
+    <div id="celebration">
+      🎉 The wait is over... Charan & Bhargavi are now one soul, one love, one life. 💑💫
+      <div id="stopwatch"></div>
+    </div>
+  </div>
   <script>
-  const weddingDate = new Date('2025-08-09T23:33:00');
+    const weddingDate = new Date("2025-08-09T23:33:00").getTime();
+    const countdown = document.getElementById("countdown");
+    const celebration = document.getElementById("celebration");
+    const stopwatch = document.getElementById("stopwatch");
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = weddingDate - now;
+    let countdownInterval = setInterval(() => {
+      let now = new Date().getTime();
+      let distance = weddingDate - now;
 
-    if (diff <= 0) {
-      document.getElementById('countdown').style.display = 'none';
-      document.getElementById('celebration').style.display = 'block';
-      startStopwatch();
-      return;
+      if (distance > 0) {
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdown.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        clearInterval(countdownInterval);
+        countdown.style.display = "none";
+        celebration.classList.add("show");
+        celebration.style.display = "block";
+        startStopwatch();
+      }
+    }, 1000);
+
+    function startStopwatch() {
+      let startTime = new Date().getTime();
+      setInterval(() => {
+        let now = new Date().getTime();
+        let diff = now - weddingDate;
+
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        stopwatch.innerHTML = `⏱️ Together since: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
     }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById('countdown').textContent =
-      `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
-
-  function startStopwatch() {
-    function updateStopwatch() {
-      const now = new Date();
-      const elapsed = now - weddingDate;
-
-      const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
-      const seconds = Math.floor((elapsed / 1000) % 60);
-
-      document.getElementById('stopwatch').textContent =
-        `Together for: ${days}d ${hours}h ${minutes}m ${seconds}s 💞`;
-    }
-
-    updateStopwatch();
-    setInterval(updateStopwatch, 1000);
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-</script>
-
-
+  </script>
 </body>
 </html>
