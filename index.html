@@ -16,7 +16,7 @@
     .background {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: url('IMG_4296.JPEG') no-repeat center center/cover;
+      background: url('togather.JPEG') no-repeat center center/cover;
       filter: blur(6px);
       z-index: -2;
     }
@@ -106,42 +106,63 @@
 
   <div class="content">
     <h1>Charan ❤️ Bhargavi</h1>
-    <p>A journey of forever begins soon... <br>
-       Countdown to our wedding ceremony at <strong>11:33 PM on August 9</strong></p>
+<p>Two hearts, one journey.<br>
+The countdown to our forever begins now...</p>
+
 
     <div id="countdown">Loading countdown...</div>
-    <div id="celebration">🎉 It's Time! Congratulations, Mr. & Mrs. Charan & Bhargavi! 🥳💍</div>
+   <div id="celebration" style="display:none;">
+  🎉 The wait is over... Charan & Bhargavi are now one soul, one love, one life. 💑💫
+  <div id="stopwatch" style="margin-top: 20px; font-size: 1.5rem; color: #f1c40f;"></div>
+</div>
+
   </div>
 
   <script>
-    function updateCountdown() {
-      const now = new Date();
-      const targetDate = new Date(`${now.getFullYear()}-08-09T23:33:00`);
+  const weddingDate = new Date('2025-08-09T23:33:00');
 
-      if (now > targetDate) {
-        targetDate.setFullYear(targetDate.getFullYear() + 1);
-      }
+  function updateCountdown() {
+    const now = new Date();
+    const diff = weddingDate - now;
 
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        document.getElementById('countdown').style.display = 'none';
-        document.getElementById('celebration').style.display = 'block';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      document.getElementById('countdown').textContent =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (diff <= 0) {
+      document.getElementById('countdown').style.display = 'none';
+      document.getElementById('celebration').style.display = 'block';
+      startStopwatch();
+      return;
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('countdown').textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  function startStopwatch() {
+    function updateStopwatch() {
+      const now = new Date();
+      const elapsed = now - weddingDate;
+
+      const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+      const seconds = Math.floor((elapsed / 1000) % 60);
+
+      document.getElementById('stopwatch').textContent =
+        `Together for: ${days}d ${hours}h ${minutes}m ${seconds}s 💞`;
+    }
+
+    updateStopwatch();
+    setInterval(updateStopwatch, 1000);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
 
 </body>
 </html>
