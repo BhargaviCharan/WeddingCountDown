@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charan ❤️ Bhargavi - Wedding Countdown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      /* Initial background image - will be overridden by JS on load if data-bg is set */
+      background: url('togather.JPEG') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Dancing Script', 'Great Vibes', cursive;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      /* Add transition for background-image for fading effect */
+      transition: background-image 1s ease-in-out;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    .center-content {
+      padding: 20px;
+      z-index: 1;
+    }
+
+    .glow-text {
+      color: #fff;
+      text-shadow:
+        0 0 5px #f8c6ff,
+        0 0 10px #f49eff,
+        0 0 20px #ff6fff,
+        0 0 30px #d13cff,
+        0 0 40px #b300ff;
+      animation: shimmer 2.5s infinite alternate;
+      font-size: 3rem;
+    }
+
+    @keyframes shimmer {
+      from {
+        text-shadow:
+          0 0 5px #f8c6ff,
+          0 0 10px #f49eff,
+          0 0 20px #ff6fff,
+          0 0 30px #d13cff,
+          0 0 40px #b300ff;
+      }
+      to {
+        text-shadow:
+          0 0 10px #ffd6fa,
+          0 0 20px #fcb3ff,
+          0 0 30px #ff8fff,
+          0 0 40px #e056fd,
+          0 0 50px #c600ff;
+      }
+    }
+
+    #countdown, #stopwatch, #celebration {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    #celebration {
+      display: none;
+      transition: opacity 2s ease;
+      opacity: 0;
+    }
+
+    #celebration.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 1.4rem;
+        padding: 10px;
+      }
+      .glow-text {
+        font-size: 2.4rem;
+      }
+      #countdown, #stopwatch, #celebration {
+        font-size: 1.7rem;
+      }
+    }
+
+    /* Floating hearts */
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s infinite ease-in;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg) scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Styles for 10 hearts with staggered animations */
+    .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .heart:nth-child(2) { left: 20%; animation-delay: 2s; }
+    .heart:nth-child(3) { left: 30%; animation-delay: 4s; }
+    .heart:nth-child(4) { left: 40%; animation-delay: 6s; }
+    .heart:nth-child(5) { left: 50%; animation-delay: 8s; }
+    .heart:nth-child(6) { left: 60%; animation-delay: 0.5s; } /* Slightly different delay for variety */
+    .heart:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+    .heart:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+    .heart:nth-child(9) { left: 90%; animation-delay: 6.5s; }
+    .heart:nth-child(10) { left: 95%; animation-delay: 8.5s; }
+  </style>
+</head>
+<body data-bg='["togather.JPEG", "togather1.JPEG", "togather2.JPEG", "togather3.JPEG", "togather4.JPEG", "togather5.JPEG"]'>
+  <div class="hearts-container">
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+  </div>
+  <div class="center-content">
+    <h1 class="glow-text">Charan ❤️ Bhargavi</h1>
+    <p>Two hearts, one journey.<br>Our forever is just a heartbeat away... 💖</p>
+    <p style="font-style: italic; font-size: 1rem; margin-top: 10px;">ప్రేమలో ఒక చిరునవ్వు… జీవితాంతం చిరస్మరణీయమైన బంధంగా మారుతుంది 💍</p>
+    <div id="countdown"></div>
+    <div id="celebration">
+      🎉 The wait is over... Charan & Bhargavi are now one soul, one love, one life. 💑💫
+      <div id="stopwatch"></div>
+    </div>
+  </div>
+  <script>
+    // Set the wedding date and time
+    // Current date is Monday, July 21, 2025. The wedding is in August 2025.
+    const weddingDate = new Date("2025-08-09T23:33:00").getTime(); // Adjust this to your exact wedding date and time
+    
+    const countdown = document.getElementById("countdown");
+    const celebration = document.getElementById("celebration");
+    const stopwatch = document.getElementById("stopwatch");
+
+    // Background image cycling logic
+    const body = document.body;
+    const backgroundImages = JSON.parse(body.getAttribute('data-bg'));
+    let currentBackgroundIndex = 0;
+
+    // Preload images for smoother transitions (optional but recommended)
+    backgroundImages.forEach(imageUrl => {
+      const img = new Image();
+      img.src = imageUrl;
+    });
+
+    // Set initial background image when the page loads
+    body.style.backgroundImage = `url('${backgroundImages[currentBackgroundIndex]}')`;
+
+    function changeBackground() {
+      currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundImages.length;
+      body.style.backgroundImage = `url('${backgroundImages[currentBackgroundIndex]}')`;
+    }
+
+    // Change background every 30 seconds
+    setInterval(changeBackground, 5000); // 30000 milliseconds = 30 seconds
+
+    // Countdown logic
+    let countdownInterval = setInterval(() => {
+      let now = new Date().getTime();
+      let distance = weddingDate - now;
+
+      if (distance > 0) {
+        // Calculate days, hours, minutes, seconds
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdown.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        // When the countdown is over
+        clearInterval(countdownInterval); // Stop the countdown
+        countdown.style.display = "none"; // Hide countdown
+        celebration.classList.add("show"); // Show celebration message with fade-in
+        celebration.style.display = "block";
+        startStopwatch(); // Start the stopwatch
+      }
+    }, 1000); // Update every second
+
+    // Stopwatch logic (for after the wedding)
+    function startStopwatch() {
+      // Use the actual weddingDate as the start time for the stopwatch
+      const stopwatchStartTime = weddingDate; 
+      setInterval(() => {
+        let now = new Date().getTime();
+        let diff = now - stopwatchStartTime; // Calculate difference from the wedding date
+
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        stopwatch.innerHTML = `⏱️ Together since: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000); // Update every second
+    }
+  </script>
+</body>
+</html>
